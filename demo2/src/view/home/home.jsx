@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 //import { Switch, Route } from 'react-router-dom'
 //import User from '../user/user'
 class Home extends Component{
@@ -12,7 +13,10 @@ class Home extends Component{
     }
     render(){
     	return(
-    		<div>this is home</div>
+    		<div>
+                <div>this is home</div>
+                <div><Link to='/orderList'>home to orderList</Link></div>
+            </div>
     	)
     }
 }
