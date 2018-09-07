@@ -6,7 +6,7 @@ const defaultState = {
 export const homeData = (state=defaultState,action={})=>{
 	switch(action.type){
 		case home.CHANGENAME:
-			return {...state,...{name:action.newName}};
+			return {...state,...{homeName:action.newName}};
 		default:
 			return state;
 	}

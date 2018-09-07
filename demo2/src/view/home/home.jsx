@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 class Home extends Component{
     constructor(props){
         super(props); 
-        console.log('home初始化')
+        console.log('home初始化',props)
         this.state = ({num:1})
     }
     componentDidMount(){

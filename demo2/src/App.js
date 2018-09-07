@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import {Link,Switch,Route} from 'react-router-dom';
 import './App.css';
+import {connect} from 'react-redux';
+import * as act from './redux/actions/homeAction';
 import home from './view/home/home';
 import user from './view/user/user';
 import orderList from './view/orderList/orderList';
+import Form from './component/form';
 
 class App extends Component {
   constructor(props){
     super(props);  
     console.log('App初始化')
-    console.log(this.props.match)
-    let arr =[1,2,3];
-    arr.splice(1,1,5,6,7);
-    console.log(arr)
+    //console.log(this.props.match)
+    this.state = ({
+      appName:this.props.appName?this.props.appName:'tc'
+    })
   }
   render() {
   	const footBar ={
@@ -25,15 +28,17 @@ class App extends Component {
 		  justifyContent: 'space-around',
 		  lineHeight: '40px',
 		  height: '40px'
-  	}
-    //const match=this.props.match;
+    }
+    const match=this.props.match;
+    console.log(this.props.mapData)
     return (
       <div className="App">
-      	
-      	<Switch>
-          <Route exact path="/index" component={home} />
-          <Route exact path="/index/orderList" component={orderList} />
-      		<Route path="/index/user" component={user} />
+      	<div>appName:{this.props.mapData.homeName}</div>
+      	<Form></Form>
+        <Switch>
+          <Route exact path={`${match.url}`} component={home} />
+          <Route exact path={`${match.url}/orderList`} component={orderList} />
+      		<Route path={`${match.url}/user`} component={user} />
       	</Switch>
       	<div style={footBar}>
       		<span><Link to='/index'>首页</Link></span>
@@ -44,5 +49,17 @@ class App extends Component {
     );
   }
 }
+const mapState = (state)=>{
 
-export default App;
+  console.log('state:',state)
+  return {
+    mapData:state.homeData,//对应本组件props需要的属性products
+    mapName:state.homeData.homeName
+  }
+}
+const mapDispatch = (dispatch)=>{
+  return {
+    mapCHANGENAME: (v) => dispatch(act.CHANGENAME(v))
+  }
+}
+export default connect(mapState,mapDispatch)(App);
