@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import * as act from '../../redux/actions/homeAction';
+import { DatePicker } from 'antd';
+import 'antd/dist/antd.css';  // or 'antd/dist/antd.less'
 //import { Switch, Route } from 'react-router-dom'
 //import User from '../user/user'
 class Home extends Component{
@@ -11,13 +15,25 @@ class Home extends Component{
     componentDidMount(){
         console.log('home DidMount')
     }
+
     render(){
     	return(
     		<div>
                 <div>this is home</div>
                 <div><Link to='/orderList'>home to orderList</Link></div>
+                <DatePicker></DatePicker>
             </div>
     	)
     }
 }
-export default Home;
+const mapState = (state)=>{
+    return {
+        mapData:state.homeData
+    }
+}
+const mapDispatch = (dispatch)=>{
+    return{
+        changeName:(v)=>dispatch(act.CHANGENAME(v))
+    }
+}
+export default connect(mapState,mapDispatch)(Home);
